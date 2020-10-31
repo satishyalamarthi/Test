@@ -398,6 +398,31 @@
               <FileType>1</FileType>
               <FilePath>.\Blinky.c</FilePath>
             </File>
+            <File>
+              <FileName>MMC_SD.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SD\MMC_SD.C</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPI\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPI\stm32f10x_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPI\stm32f10x_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\delay\delay.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -814,6 +839,31 @@
               <FileName>Blinky.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Blinky.c</FilePath>
+            </File>
+            <File>
+              <FileName>MMC_SD.C</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SD\MMC_SD.C</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPI\spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPI\stm32f10x_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f10x_rcc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\SPI\stm32f10x_rcc.c</FilePath>
+            </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\delay\delay.c</FilePath>
             </File>
           </Files>
         </Group>

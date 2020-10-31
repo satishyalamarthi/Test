@@ -6,7 +6,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\rt_misc.h)(0x5EC7991A)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x5EC79924)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC79924)
 I (Serial.h)(0x532036B6)
-F (.\Serial.c)(0x5F99AFB8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\serial.o --omf_browse .\flash\serial.crf --depend .\flash\serial.d)
+F (.\Serial.c)(0x5F9D88FC)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\serial.o --omf_browse .\flash\serial.crf --depend .\flash\serial.d)
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58255B94)
 I (.\RTE\_STM32F103_Flash\RTE_Components.h)(0x5F78C277)
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EF44A)
@@ -16,7 +16,7 @@ I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\c
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8EF44A)
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58255B94)
 I (Serial.h)(0x532036B6)
-F (.\Blinky.c)(0x5F9D714D)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\blinky.o --omf_browse .\flash\blinky.crf --depend .\flash\blinky.d)
+F (.\Blinky.c)(0x5F9D8E26)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\blinky.o --omf_browse .\flash\blinky.crf --depend .\flash\blinky.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5EC79924)
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board\Board_LED.h)(0x5D144092)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC79924)
@@ -29,6 +29,59 @@ I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\c
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8EF44A)
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58255B94)
 I (Serial.h)(0x532036B6)
+F (.\SD\MMC_SD.C)(0x5F9D8738)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\mmc_sd.o --omf_browse .\flash\mmc_sd.crf --depend .\flash\mmc_sd.d)
+I (SD\../spi/stm32f10x_spi.h)(0x57F519EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58255B94)
+I (.\RTE\_STM32F103_Flash\RTE_Components.h)(0x5F78C277)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EF44A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC79924)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8329EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58255B94)
+I (SD\MMC_SD.h)(0x5F9D7D14)
+I (SD\../spi/spi.h)(0x5F9D7985)
+F (.\SPI\spi.c)(0x5F9D7C65)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\spi.o --omf_browse .\flash\spi.crf --depend .\flash\spi.d)
+I (SPI\stm32f10x_spi.h)(0x57F519EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58255B94)
+I (.\RTE\_STM32F103_Flash\RTE_Components.h)(0x5F78C277)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EF44A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC79924)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8329EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58255B94)
+I (SPI\spi.h)(0x5F9D7985)
+F (.\SPI\stm32f10x_spi.c)(0x5F9D7ED4)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\stm32f10x_spi.o --omf_browse .\flash\stm32f10x_spi.crf --depend .\flash\stm32f10x_spi.d)
+I (SPI\stm32f10x_spi.h)(0x57F519EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58255B94)
+I (.\RTE\_STM32F103_Flash\RTE_Components.h)(0x5F78C277)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EF44A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC79924)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8329EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58255B94)
+I (SPI\stm32f10x_rcc.h)(0x57F519EA)
+F (.\SPI\stm32f10x_rcc.c)(0x5F9D7EE8)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\stm32f10x_rcc.o --omf_browse .\flash\stm32f10x_rcc.crf --depend .\flash\stm32f10x_rcc.d)
+I (SPI\stm32f10x_rcc.h)(0x57F519EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58255B94)
+I (.\RTE\_STM32F103_Flash\RTE_Components.h)(0x5F78C277)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EF44A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC79924)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8329EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58255B94)
+F (.\delay\delay.c)(0x5F9D80FE)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\delay.o --omf_browse .\flash\delay.crf --depend .\flash\delay.d)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58255B94)
+I (.\RTE\_STM32F103_Flash\RTE_Components.h)(0x5F78C277)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h)(0x5E8EF44A)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5EC79924)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8329EA)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8EF44A)
+I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h)(0x58255B94)
 F (.\Abstract.txt)(0x54E415FA)()
 F (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32NUCLEO_BSP\1.7.0\Boards\ST\NUCLEO-F103RB\Common\Buttons_NUCLEO_F103RB.c)(0x53F5A748)(-c --cpu Cortex-M3 -D__EVAL -D__MICROLIB -g -O0 --apcs=interwork -I.\RTE\Device\STM32F103RB-I.\RTE\_STM32F103_Flash-IC:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\MDK-Middleware\7.11.1\Board-IC:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="531" -D_RTE_ -DSTM32F10X_MD -D_RTE_-o .\flash\buttons_nucleo_f103rb.o --omf_browse .\flash\buttons_nucleo_f103rb.crf --depend .\flash\buttons_nucleo_f103rb.d)
 I (C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h)(0x58255B94)

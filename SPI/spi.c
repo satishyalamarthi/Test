@@ -1,3 +1,4 @@
+#include "stm32f10x_spi.h"                  // Device header
 #include "spi.h"
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
@@ -22,8 +23,8 @@ void SPIx_Init(void)
 	RCC->APB2ENR|=1<<12;      //SPI1时钟使能 
 		   
 	//这里只针对SPI口初始化
-	GPIOA->CRL&=0X0000FFFF; 
-	GPIOA->CRL|=0XBBBB0000;//PA5.6.7复用 	    
+	GPIOA->CRL&=0X000FFFFF; 
+	GPIOA->CRL|=0XBBB00000;//PA5.6.7复用 	    
 	GPIOA->ODR|=0X7<<5;    //PA5.6.7上拉
 		
 	SPI1->CR1|=0<<10;//全双工模式	

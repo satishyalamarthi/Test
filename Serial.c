@@ -117,12 +117,9 @@ int SER_PutChar (int ch) {
 #ifdef __DBG_ITM
   ITM_SendChar (ch & 0xFF);
 #else
-  while (!(USARTx->SR & 0x0080));
-  USARTx->DR = (ch & 0xFF);
-#endif
-	
-	 while (!(USART1->SR & 0x0080));
+  while (!(USART1->SR & 0x0080));
   USART1->DR = (ch & 0xFF);
+#endif
 
   return (ch);
 }

@@ -1,8 +1,10 @@
-#include "sys.h"
+//#include "sys.h"
+#include "../spi/stm32f10x_spi.h"                  // Device header
+
 #include "MMC_SD.h"
-#include "spi.h"
-#include "usart.h"
-#include "delay.h" 							   
+#include "../spi/spi.h"
+//#include "usart.h"
+//#include "delay.h" 	
 u8  SD_Type=0;//SD卡的类型
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序只供学习使用，未经作者许可，不得用于其它任何用途
@@ -167,12 +169,12 @@ u8 SD_SendCommand(u8 cmd, u32 arg, u8 crc)
 {
     u8 r1;	
 	u8 Retry=0;	         
-	SD_CS=1;
+	CS_SELECT(1);
     SPIx_ReadWriteByte(0xff);//高速写命令延时
 	SPIx_ReadWriteByte(0xff);     
  	SPIx_ReadWriteByte(0xff);  	 
     //片选端置低，选中SD卡
-    SD_CS=0; 
+    CS_SELECT(0); 
     //发送
     SPIx_ReadWriteByte(cmd | 0x40);//分别写入命令
     SPIx_ReadWriteByte(arg >> 24);
@@ -187,7 +189,7 @@ u8 SD_SendCommand(u8 cmd, u32 arg, u8 crc)
         if(Retry>200)break; 
     }   
     //关闭片选
-    SD_CS=1;
+    CS_SELECT(1);
     //在总线上额外增加8个时钟，让SD卡完成剩下的工作
     SPIx_ReadWriteByte(0xFF);
     //返回状态值
@@ -204,7 +206,7 @@ u8 SD_SendCommand_NoDeassert(u8 cmd, u32 arg, u8 crc)
 	u8 r1;			   
     SPIx_ReadWriteByte(0xff);//高速写命令延时
 	SPIx_ReadWriteByte(0xff);  	 	 
-    SD_CS=0;//片选端置低，选中SD卡	   
+    CS_SELECT(0);//片选端置低，选中SD卡	   
     //发送
     SPIx_ReadWriteByte(cmd | 0x40); //分别写入命令
     SPIx_ReadWriteByte(arg >> 24);
@@ -268,12 +270,12 @@ u8 SD_Init(void)
 	GPIOA->ODR|=0X9<<1;    //PA2.3.4上拉 //add PA1,remove 2,3 for usart2
 	SPIx_Init();
  	//SPIx_SetSpeed(SPI_SPEED_256);//设置到低速模式		 
-	SD_CS=1;	
+	CS_SELECT(1);	
 	//GPIOA->BSRR=GPIO_Pin_3;
     if(SD_Idle_Sta()) return 1;//超时返回1 设置到idle 模式失败	  
     //-----------------SD卡复位到idle结束-----------------	 
     //获取卡片的SD版本信息
- 	SD_CS=0;	
+ 	CS_SELECT(0);	
 	r1 = SD_SendCommand_NoDeassert(8, 0x1aa,0x87);	     
     //如果卡片版本信息是v1.0版本的，即r1=0x05，则进行以下初始化
     if(r1 == 0x05)
@@ -282,7 +284,7 @@ u8 SD_Init(void)
         SD_Type = SD_TYPE_V1;	   
         //如果是V1.0卡，CMD8指令后没有后续数据
         //片选置高，结束本次命令
-        SD_CS=1;
+        CS_SELECT(1);
         //多发8个CLK，让SD结束后续操作
         SPIx_ReadWriteByte(0xFF);	  
         //-----------------SD卡、MMC卡初始化开始-----------------	 
@@ -337,7 +339,7 @@ u8 SD_Init(void)
         buff[1] = SPIx_ReadWriteByte(0xFF);  //should be 0x00
         buff[2] = SPIx_ReadWriteByte(0xFF);  //should be 0x01
         buff[3] = SPIx_ReadWriteByte(0xFF);  //should be 0xAA	    
-        SD_CS=1;	  
+        CS_SELECT(1);	  
         SPIx_ReadWriteByte(0xFF);//the next 8 clocks			 
         //判断该卡是否支持2.7V-3.6V的电压范围
         //if(buff[2]==0x01 && buff[3]==0xAA) //不判断，让其支持的卡更多
@@ -356,7 +358,7 @@ u8 SD_Init(void)
             r1 = SD_SendCommand_NoDeassert(CMD58, 0, 0);
             if(r1!=0x00)
 			{
-				SD_CS=1;//释放SD片选信号
+				CS_SELECT(1);//释放SD片选信号
 				return r1;  //如果命令没有返回正确应答，直接退出，返回应答	 
 			}//读OCR指令发出后，紧接着是4字节的OCR信息
             buff[0] = SPIx_ReadWriteByte(0xFF);
@@ -364,7 +366,7 @@ u8 SD_Init(void)
             buff[2] = SPIx_ReadWriteByte(0xFF);
             buff[3] = SPIx_ReadWriteByte(0xFF);		 
             //OCR接收完成，片选置高
-            SD_CS=1;
+            CS_SELECT(1);
             SPIx_ReadWriteByte(0xFF);	   
             //检查接收到的OCR中的bit30位（CCS），确定其为SD2.0还是SDHC
             //如果CCS=1：SDHC   CCS=0：SD2.0
@@ -425,7 +427,7 @@ u8 SD_Init1(void)
 
         //如果是V1.0卡，CMD8指令后没有后续数据
         //片选置高，结束本次命令
-        SD_CS = 1;
+        CS_SELECT(1);
         //多发8个CLK，让SD结束后续操作
         SPI_ReadWriteByte(0xFF);
 
@@ -503,7 +505,7 @@ u8 SD_Init1(void)
         buff[2] = SPI_ReadWriteByte(0xFF);  //should be 0x01
         buff[3] = SPI_ReadWriteByte(0xFF);  //should be 0xAA
      
-        SD_CS=1;
+        CS_SELECT(1);
         //the next 8 clocks
         SPI_ReadWriteByte(0xFF);
         
@@ -542,7 +544,7 @@ u8 SD_Init1(void)
             buff[3] = SPI_ReadWriteByte(0xFF);
 
             //OCR接收完成，片选置高
-            SD_CS = 1;
+            CS_SELECT(1);
             SPI_ReadWriteByte(0xFF);
 
             //检查接收到的OCR中的bit30位（CCS），确定其为SD2.0还是SDHC
@@ -574,10 +576,10 @@ u8 SD_Init1(void)
 u8 SD_ReceiveData(u8 *data, u16 len, u8 release)
 {
     // 启动一次传输
-    SD_CS=0;				  	  
+    CS_SELECT(0);				  	  
 	if(SD_GetResponse(0xFE))//等待SD卡发回数据起始令牌0xFE
 	{	  
-		SD_CS=1;
+		CS_SELECT(1);
 		return 1;
 	}
     while(len--)//开始接收数据
@@ -590,7 +592,7 @@ u8 SD_ReceiveData(u8 *data, u16 len, u8 release)
     SPIx_ReadWriteByte(0xFF);
     if(release==RELEASE)//按需释放总线，将CS置高
     {
-        SD_CS=1;//传输结束
+        CS_SELECT(1);//传输结束
         SPIx_ReadWriteByte(0xFF);
     }											  					    
     return 0;
@@ -673,6 +675,7 @@ u32 SD_GetCapacity(void)
         //The final result
     	Capacity *= (u32)temp;//字节为单位 	  
     }
+		printf("capacity: %lu",Capacity);
     return (u32)Capacity;
 }	    																			    
 //读SD卡的一个block
@@ -711,7 +714,7 @@ u8 MSD_WriteBuffer(u8* pBuffer, u32 WriteAddr, u32 NumByteToWrite)
 	u32 sector;
 	u8 r1;
    	NbrOfBlock = NumByteToWrite / BLOCK_SIZE;//得到要写入的块的数目	    
-    SD_CS=0;	  		   
+    CS_SELECT(0);	  		   
 	while (NbrOfBlock--)//写入一个扇区
 	{
 		sector=WriteAddr+Offset;
@@ -719,7 +722,7 @@ u8 MSD_WriteBuffer(u8* pBuffer, u32 WriteAddr, u32 NumByteToWrite)
 		r1=SD_SendCommand_NoDeassert(CMD24,sector,0xff);//写命令   
  		if(r1)
 		{
-			SD_CS=1;
+			CS_SELECT(1);
 			return 1;//应答不正确，直接返回 	   
 	    }
 	    SPIx_ReadWriteByte(0xFE);//放起始令牌0xFE   
@@ -730,13 +733,13 @@ u8 MSD_WriteBuffer(u8* pBuffer, u32 WriteAddr, u32 NumByteToWrite)
 	    SPIx_ReadWriteByte(0xff); 
  		if(SD_WaitDataReady())//等待SD卡数据写入完成
 		{
-			SD_CS=1;
+			CS_SELECT(1);
 			return 2;    
 		}
 		Offset += 512;	   
 	}	    
     //写入完成，片选置1
-    SD_CS=1;
+    CS_SELECT(1);
     SPIx_ReadWriteByte(0xff);	 
     return 0;
 }
@@ -752,7 +755,7 @@ u8 MSD_ReadBuffer(u8* pBuffer, u32 ReadAddr, u32 NumByteToRead)
 	u32 sector=0;
 	u8 r1=0;   	 
   	NbrOfBlock=NumByteToRead/BLOCK_SIZE;	  
-    SD_CS=0;
+    CS_SELECT(0);
 	while (NbrOfBlock --)
 	{	
 		sector=ReadAddr+Offset;
@@ -760,19 +763,19 @@ u8 MSD_ReadBuffer(u8* pBuffer, u32 ReadAddr, u32 NumByteToRead)
 		r1=SD_SendCommand_NoDeassert(CMD17,sector,0xff);//读命令	 		    
 		if(r1)//命令发送错误
 		{
-    		SD_CS=1;
+    		CS_SELECT(1);
 			return r1;
 		}	   							  
 		r1=SD_ReceiveData(pBuffer,512,RELEASE);		 
 		if(r1)//读数错误
 		{
-    		SD_CS=1;
+    		CS_SELECT(1);
 			return r1;
 		}
 		pBuffer+=512;	 					    
 	  	Offset+=512;				 	 
 	}	 	 
-    SD_CS=1;
+    CS_SELECT(1);
     SPIx_ReadWriteByte(0xff);	 
     return 0;
 }
@@ -802,7 +805,7 @@ u8 SD_WriteSingleBlock(u32 sector, const u8 *data)
     }
     
     //开始准备数据传输
-    SD_CS=0;
+    CS_SELECT(0);
     //先放3个空数据，等待SD卡准备好
     SPIx_ReadWriteByte(0xff);
     SPIx_ReadWriteByte(0xff);
@@ -823,7 +826,7 @@ u8 SD_WriteSingleBlock(u32 sector, const u8 *data)
     r1 = SPIx_ReadWriteByte(0xff);
     if((r1&0x1F)!=0x05)
     {
-        SD_CS=1;
+        CS_SELECT(1);
         return r1;
     }
     
@@ -834,12 +837,12 @@ u8 SD_WriteSingleBlock(u32 sector, const u8 *data)
         retry++;
         if(retry>0xfffe)        //如果长时间写入没有完成，报错退出
         {
-            SD_CS=1;
+            CS_SELECT(1);
             return 1;           //写入超时返回1
         }
     }	    
     //写入完成，片选置1
-    SD_CS=1;
+    CS_SELECT(1);
     SPIx_ReadWriteByte(0xff);
 
     return 0;
@@ -868,7 +871,7 @@ u8 SD_ReadMultiBlock(u32 sector, u8 *buffer, u8 count)
     //全部传输完毕，发送停止命令
     SD_SendCommand(CMD12, 0, 0);
     //释放总线
-    SD_CS=1;
+    CS_SELECT(1);
     SPIx_ReadWriteByte(0xFF);    
     if(count != 0)return count;   //如果没有传完，返回剩余个数	 
     else return 0;	 
@@ -888,7 +891,7 @@ u8 SD_WriteMultiBlock(u32 sector, const u8 *data, u8 count)
     if(SD_Type != SD_TYPE_MMC) r1 = SD_SendCommand(ACMD23, count, 0x00);//如果目标卡不是MMC卡，启用ACMD23指令使能预擦除   
     r1 = SD_SendCommand(CMD25, sector, 0x00);//发多块写入指令
     if(r1 != 0x00)return r1;  //应答不正确，直接返回	 
-    SD_CS=0;//开始准备数据传输   
+    CS_SELECT(0);//开始准备数据传输   
     SPIx_ReadWriteByte(0xff);//先放3个空数据，等待SD卡准备好
     SPIx_ReadWriteByte(0xff);   
     //--------下面是N个sector写入的循环部分
@@ -909,13 +912,13 @@ u8 SD_WriteMultiBlock(u32 sector, const u8 *data, u8 count)
         r1 = SPIx_ReadWriteByte(0xff);
         if((r1&0x1F)!=0x05)
         {
-            SD_CS=1;    //如果应答为报错，则带错误代码直接退出
+            CS_SELECT(1);    //如果应答为报错，则带错误代码直接退出
             return r1;
         }		   
         //等待SD卡写入完成
         if(SD_WaitDataReady()==1)
         {
-            SD_CS=1;    //等待SD卡写入完成超时，直接退出报错
+            CS_SELECT(1);    //等待SD卡写入完成超时，直接退出报错
             return 1;
         }	   
     }while(--count);//本sector数据传输完成  
@@ -927,11 +930,11 @@ u8 SD_WriteMultiBlock(u32 sector, const u8 *data, u8 count)
     }		   
     if(SD_WaitDataReady()) //等待准备好
 	{
-		SD_CS=1;
+		CS_SELECT(1);
 		return 1;  
 	}
     //写入完成，片选置1
-    SD_CS=1;
+    CS_SELECT(1);
     SPIx_ReadWriteByte(0xff);  
     return count;   //返回count值，如果写完则count=0，否则count=1
 }						  					  
@@ -947,10 +950,10 @@ u8 SD_Read_Bytes(unsigned long address,unsigned char *buf,unsigned int offset,un
     u8 r1;u16 i=0;  
     r1=SD_SendCommand(CMD17,address<<9,0);//发送读扇区命令      
     if(r1)return r1;  //应答不正确，直接返回
-	SD_CS=0;//选中SD卡
+	CS_SELECT(0);//选中SD卡
 	if(SD_GetResponse(0xFE))//等待SD卡发回数据起始令牌0xFE
 	{
-		SD_CS=1; //关闭SD卡
+		CS_SELECT(1); //关闭SD卡
 		return 1;//读取失败
 	}	 
 	for(i=0;i<offset;i++)SPIx_ReadWriteByte(0xff);//跳过offset位 
@@ -958,7 +961,7 @@ u8 SD_Read_Bytes(unsigned long address,unsigned char *buf,unsigned int offset,un
     for(;i<512;i++) SPIx_ReadWriteByte(0xff); 	 //读出剩余字节
     SPIx_ReadWriteByte(0xff);//发送伪CRC码
     SPIx_ReadWriteByte(0xff);  
-    SD_CS=1;//关闭SD卡
+    CS_SELECT(1);//关闭SD卡
 	return 0;
 }
 
