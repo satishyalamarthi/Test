@@ -104,7 +104,10 @@ void SER_Initialize (void) {
   USART3->CR1   = ((   1ul <<  2) |        /* enable RX                       */
                    (   1ul <<  3) |        /* enable TX                       */
                    (   0ul << 12) |        /* 1 start bit, 8 data bits        */
-                   (   1ul << 13) );       /* enable USART                    */
+                   (   1ul << 13) |       /* enable USART                    */
+									 (   1ul << 5));
+									 
+NVIC_EnableIRQ(USART3_IRQn);
 #endif
 }
 

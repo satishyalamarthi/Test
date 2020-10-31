@@ -28,40 +28,6 @@ Project File Date:  10/31/2020
 *** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild target 'STM32F103 Flash'
 compiling Retarget.c...
-assembling startup_stm32f10x_md.s...
-compiling stm32f10x_spi.c...
-compiling delay.c...
-delay\delay.c(39): warning:  #1-D: last line of file ends without a newline
-  }
-delay\delay.c: 1 warning, 0 errors
-compiling LED_NUCLEO_F103RB.c...
-compiling Buttons_NUCLEO_F103RB.c...
-compiling system_stm32f10x.c...
-compiling spi.c...
-compiling Blinky.c...
-Blinky.c(159): warning:  #223-D: function "DelayInit" declared implicitly
-  	DelayInit();
-Blinky.c(166): warning:  #223-D: function "SD_Init" declared implicitly
-  	SD_Init();
-Blinky.c(167): warning:  #223-D: function "SD_GetCapacity" declared implicitly
-  	SD_GetCapacity();
-Blinky.c(169): warning:  #223-D: function "SD_GetCID" declared implicitly
-  	a = SD_GetCID(&b);
-Blinky.c(171): warning:  #223-D: function "SD_WriteSingleBlock" declared implicitly
-  	a = SD_WriteSingleBlock( 0,buff1);
-Blinky.c(173): warning:  #223-D: function "SD_ReadSingleBlock" declared implicitly
-  	a = SD_ReadSingleBlock( 0,buff2);
-Blinky.c(155): warning:  #177-D: variable "num"  was declared but never referenced
-    int32_t num = 0;
-Blinky.c(156): warning:  #177-D: variable "i"  was declared but never referenced
-    int i = 0,j,test[20];
-Blinky.c(156): warning:  #177-D: variable "j"  was declared but never referenced
-    int i = 0,j,test[20];
-Blinky.c(156): warning:  #177-D: variable "test"  was declared but never referenced
-    int i = 0,j,test[20];
-Blinky.c: 10 warnings, 0 errors
-compiling Serial.c...
-compiling stm32f10x_rcc.c...
 compiling MMC_SD.C...
 SD\MMC_SD.C(172): warning:  #223-D: function "CS_SELECT" declared implicitly
   	CS_SELECT(1);
@@ -94,9 +60,39 @@ SD\MMC_SD.C(894): warning:  #223-D: function "CS_SELECT" declared implicitly
 SD\MMC_SD.C(953): warning:  #223-D: function "CS_SELECT" declared implicitly
   	CS_SELECT(0);//Ñ¡ÖÐSD¿¨
 SD\MMC_SD.C: 15 warnings, 0 errors
+assembling startup_stm32f10x_md.s...
+compiling LED_NUCLEO_F103RB.c...
+compiling Buttons_NUCLEO_F103RB.c...
+compiling delay.c...
+delay\delay.c(39): warning:  #1-D: last line of file ends without a newline
+  }
+delay\delay.c: 1 warning, 0 errors
+compiling spi.c...
+compiling Serial.c...
+compiling system_stm32f10x.c...
+compiling Blinky.c...
+Blinky.c(177): warning:  #223-D: function "DelayInit" declared implicitly
+  	DelayInit();
+Blinky.c(184): warning:  #223-D: function "SD_Init" declared implicitly
+  	SD_Init();
+Blinky.c(185): warning:  #223-D: function "SD_GetCapacity" declared implicitly
+  	SD_GetCapacity();
+Blinky.c(187): warning:  #223-D: function "SD_GetCID" declared implicitly
+  	a = SD_GetCID(&b);
+Blinky.c(232): warning:  #223-D: function "SD_ReadSingleBlock" declared implicitly
+  								a = SD_ReadSingleBlock( i,buff2);
+Blinky.c(260): warning:  #223-D: function "SD_WriteSingleBlock" declared implicitly
+  						a = SD_WriteSingleBlock( write_block_len++,buff1[pos1]);
+Blinky.c(173): warning:  #177-D: variable "num"  was declared but never referenced
+    int32_t num = 0;
+Blinky.c(174): warning:  #177-D: variable "test"  was declared but never referenced
+    int i = 0,j,test[20];
+Blinky.c: 8 warnings, 0 errors
+compiling stm32f10x_spi.c...
+compiling stm32f10x_rcc.c...
 linking...
-Program Size: Code=7852 RO-data=324 RW-data=56 ZI-data=1024  
-".\Flash\Blinky.axf" - 0 Error(s), 26 Warning(s).
+Program Size: Code=8096 RO-data=272 RW-data=88 ZI-data=2560  
+".\Flash\Blinky.axf" - 0 Error(s), 24 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -154,7 +150,7 @@ Package Vendor: Keil
       Source file:   Device\Source\system_stm32f10x.c
       Include file:  RTE_Driver\Config\RTE_Device.h
       Source file:   Device\Source\ARM\STM32F1xx_OPT.s
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

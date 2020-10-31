@@ -145,16 +145,34 @@ CS_SELECT(unsigned char a)
 		GPIOA->BSRR = (1<<(4+16));
 }
 
+char buff1[2][512], buff2[512];
+int write_len=0,read_len=0, write_block_len = 0,state=0,stop_gps = 0,pos = 0,pos1 = 0;
+
+void USART3_IRQHandler()
+{
+		if (USART3->SR & 0x0020)
+		{
+			int data = USART3->DR;
+			//SER_PutChar(data);
+			if(!stop_gps)
+			{
+				USART2->DR = (data);
+				buff1[pos][write_len++] = data;
+			}
+		}
+}
+
 
 
 /*----------------------------------------------------------------------------
  * main: blink LED and check button state
  *----------------------------------------------------------------------------*/
+
 int main (void) {
   int32_t max_num = LED_GetCount();
   int32_t num = 0;
   int i = 0,j,test[20];
-	char buff1[51] = {"iiiiiiiisssssssssspppppppp"}, buff2[51];
+	
 	int a,b;
 	DelayInit();
   SystemCoreClockConfigure();                              // configure HSI as System Clock
@@ -168,10 +186,10 @@ int main (void) {
 	
 	a = SD_GetCID(&b);
 	
-	a = SD_WriteSingleBlock( 0,buff1);
-	printf("Write buffer status : %d", a);
-	a = SD_ReadSingleBlock( 0,buff2);
-	printf("read buffer status : %d and data : %s", a, buff2);
+	//a = SD_WriteSingleBlock( 0,buff1);
+	//printf("Write buffer status : %d", a);
+	//a = SD_ReadSingleBlock( 0,buff2);
+	//printf("read buffer status : %d and data : %s", a, buff2);
 	
 		
 	//LED_Initialize_1();
@@ -188,14 +206,62 @@ int main (void) {
 	//Delay(50000);
   for (;;) {
     
-			  if (USART3->SR & 0x0020)
+			  if (USART2->SR & 0x0020)
 				{
 					
-					int data = USART3->DR;
-					//SER_PutChar(data);
-					USART2->DR = (data);
-					//SPI1->DR = 0x31;
+					int data = USART2->DR;
+					if(data == 'S')
+					{
+						state = 1;
+					}
+					else if((state == 1) && (data == 'E'))
+					{
+						 state = 2;
+					}
+					else if((state == 2) && (data == 'N'))
+					{
+						 state = 3;
+					}
+					else if((state == 3 ) && (data == 'D'))
+					{
+						i = 0;
+						stop_gps = 1;
+						while(write_block_len)
+						{
+								i++;
+								a = SD_ReadSingleBlock( i,buff2);
+								//printf("read buffer status : %d and data : %s", a, buff2);
+								write_block_len--;
+							  for(j=0;j<512;j++)
+								{
+									  while (!(USART2->SR & 0x0080));
+											USART2->DR = (buff2[j] & 0xFF);
+								}
+						}
+						stop_gps = 0;
+					}
 				}
+//					//SER_PutChar(data);
+//					USART2->DR = (data);
+//					//SPI1->DR = 0x31;
+//					buff1[write_len++] = data;
+					if(write_len >= 512 )
+					{
+						write_len = 0;
+						pos1 = pos;
+						if(pos)
+						{
+							pos = 0;
+						}
+						else
+						{
+							pos = 1;
+						}
+						a = SD_WriteSingleBlock( write_block_len++,buff1[pos1]);
+						printf("Write buffer status : %d, block length: %d\n", a,write_block_len);
+						write_len = 0;
+					}
+//				}
 
 		}
 			
