@@ -1,1 +1,12 @@
 .\flash\mmc_sd.o: SD\MMC_SD.C
+.\flash\mmc_sd.o: SD\../spi/stm32f10x_spi.h
+.\flash\mmc_sd.o: C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\stm32f10x.h
+.\flash\mmc_sd.o: .\RTE\_STM32F103_Flash\RTE_Components.h
+.\flash\mmc_sd.o: C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm3.h
+.\flash\mmc_sd.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\flash\mmc_sd.o: C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h
+.\flash\mmc_sd.o: C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h
+.\flash\mmc_sd.o: C:\Users\Sainath\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h
+.\flash\mmc_sd.o: C:\Users\Sainath\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include\system_stm32f10x.h
+.\flash\mmc_sd.o: SD\MMC_SD.h
+.\flash\mmc_sd.o: SD\../spi/spi.h

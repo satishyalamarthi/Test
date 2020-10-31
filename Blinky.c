@@ -23,22 +23,22 @@
 
 
 volatile uint32_t msTicks;                                 // counts 1ms timeTicks
-/*----------------------------------------------------------------------------
- * SysTick_Handler:
- *----------------------------------------------------------------------------*/
-void SysTick_Handler(void) {
-  msTicks++;
-}
+///*----------------------------------------------------------------------------
+// * SysTick_Handler:
+// *----------------------------------------------------------------------------*/
+//void SysTick_Handler(void) {
+//  msTicks++;
+//}
 
-/*----------------------------------------------------------------------------
- * Delay: delays a number of Systicks
- *----------------------------------------------------------------------------*/
-void Delay (uint32_t dlyTicks) {
-  uint32_t curTicks;
+///*----------------------------------------------------------------------------
+// * Delay: delays a number of Systicks
+// *----------------------------------------------------------------------------*/
+//void Delay (uint32_t dlyTicks) {
+//  uint32_t curTicks;
 
-  curTicks = msTicks;
-  while ((msTicks - curTicks) < dlyTicks) { __NOP(); }
-}
+//  curTicks = msTicks;
+//  while ((msTicks - curTicks) < dlyTicks) { __NOP(); }
+//}
 
 /*----------------------------------------------------------------------------
  * SystemCoreClockConfigure: configure SystemCoreClock using HSI
@@ -122,38 +122,81 @@ int32_t LED_Off_1 (uint32_t num) {
 }
 
 
-void SPI1_Master_Init(void) {
-//RCC->AHB1ENR |= 1;                  //Enable GPIOA clock
-RCC->APB2ENR |= 0x1000;        // Enable SPI1 clock
+//void SPI1_Master_Init(void) {
+////RCC->AHB1ENR |= 1;                  //Enable GPIOA clock
+//RCC->APB2ENR |= 0x1000;        // Enable SPI1 clock
 
-/*———————PORTA 5, 7 for SPI1 MOSI and SCLK———————–*/
-  GPIOA->CRL   &= ~(0xFFFFul <<  4*4);         /* clear PA2, PA3                  */
-  GPIOA->CRL   |=  (0x0Bul <<  4*4);         /* USART2 Tx (PA2) output push-pull*/
-  GPIOA->CRL   |=  (0x0Bul << 4*5);         /* USART2 Rx (PA3) ioutput push-pull  */                       // Set alt mode SPI1
-  GPIOA->CRL   |=  (0x0Bul <<  4*7);         /* USART2 Tx (PA2) output push-pull*/
-  GPIOA->CRL   |=  (0x04ul << 4*6);         /* USART2 Rx (PA3) input floating  */                       // Set alt mode SPI1
-SPI1->CR1 = 0x31C;                                        //Set the Baud rate, 8-bit data frame
-SPI1->CR2 = 0;
-SPI1->CR1 |= 0x40;                                         //Enable SPI1 module
+///*———————PORTA 5, 7 for SPI1 MOSI and SCLK———————–*/
+//  GPIOA->CRL   &= ~(0xFFFFul <<  4*4);         /* clear PA2, PA3                  */
+//  GPIOA->CRL   |=  (0x0Bul <<  4*4);         /* USART2 Tx (PA2) output push-pull*/
+//  GPIOA->CRL   |=  (0x0Bul << 4*5);         /* USART2 Rx (PA3) ioutput push-pull  */                       // Set alt mode SPI1
+//  GPIOA->CRL   |=  (0x0Bul <<  4*7);         /* USART2 Tx (PA2) output push-pull*/
+//  GPIOA->CRL   |=  (0x04ul << 4*6);         /* USART2 Rx (PA3) input floating  */                       // Set alt mode SPI1
+//SPI1->CR1 = 0x31C;                                        //Set the Baud rate, 8-bit data frame
+//SPI1->CR2 = 0;
+//SPI1->CR1 |= 0x40;                                         //Enable SPI1 module
+//}
+
+CS_SELECT(unsigned char a)
+{
+	if(a)
+    GPIOA->BSRR = (1<<4);	
+	else
+		GPIOA->BSRR = (1<<(4+16));
 }
+
+char buff1[2][512], buff2[512];
+int write_len=0,read_len=0, write_block_len = 0,state=0,stop_gps = 0,pos = 0,pos1 = 0;
+
+void USART3_IRQHandler()
+{
+		if (USART3->SR & 0x0020)
+		{
+			int data = USART3->DR;
+			//SER_PutChar(data);
+			if(!stop_gps)
+			{
+				USART2->DR = (data);
+				buff1[pos][write_len++] = data;
+			}
+		}
+}
+
+
 
 /*----------------------------------------------------------------------------
  * main: blink LED and check button state
  *----------------------------------------------------------------------------*/
+
 int main (void) {
   int32_t max_num = LED_GetCount();
   int32_t num = 0;
   int i = 0,j,test[20];
+	
+	int a,b;
+	DelayInit();
   SystemCoreClockConfigure();                              // configure HSI as System Clock
   SystemCoreClockUpdate();
 
   
   //Buttons_Initialize();
   SER_Initialize();
+	SD_Init();
+	SD_GetCapacity();
+	
+	a = SD_GetCID(&b);
+	
+	//a = SD_WriteSingleBlock( 0,buff1);
+	//printf("Write buffer status : %d", a);
+	//a = SD_ReadSingleBlock( 0,buff2);
+	//printf("read buffer status : %d and data : %s", a, buff2);
+	
+		
 	//LED_Initialize_1();
 	//SPI1_Master_Init();
-
-  SysTick_Config(SystemCoreClock / 1000);                  // SysTick 1 msec interrupts
+  GPIOA->CRL   &= ~((15ul << 4*4));
+  GPIOA->CRL   |=  (( 1ul << 4*4));
+//  SysTick_Config(SystemCoreClock / 1000);                  // SysTick 1 msec interrupts
   //GPIOB->BSRR = (1<<1);		// Turn specified LED on
 	//GPIOB->BSRR = (1<<0);		// Turn specified LED on
 	//GPIOB->BSRR = (1<<(14+16));		// Turn specified LED on
@@ -162,59 +205,65 @@ int main (void) {
 	GPIOB->BSRR = (1<<13);
 	//Delay(50000);
   for (;;) {
-    //LED_On_1(11);                                           // Turn specified LED on
-    //LED_On_1(15);
-		//LED_On_1(0); 
-//GPIOA->BSRR = (1<<0);		// Turn specified LED on
-    //LED_On_1(12);
-		//GPIOB->BSRR = (1<<1);
-		//Delay(5000);                                            // Wait 500ms
-    //while (Buttons_GetState() & (1 << 0));                 // Wait while holding USER button
-    //LED_Off_1(11);                                          // Turn specified LED off
-    //LED_Off_1(15);
-//GPIOA->BSRR = (1<<16);		// Turn specified LED on
-		//LED_Off_1(0);                                           // Turn specified LED on
-    //LED_On_1(12);
-		
-		//Delay(500);                                            // Wait 500ms
-    //while (Buttons_GetState() & (1 << 0));                 // Wait while holding USER button
-		
-    //num++;                                                 // Change LED number
-    if (num >= max_num) {
-      num = 0;                                             // Restart with first LED
-    }
-		i++;
-		//for(i=0;i<10&&(USART1->SR & 0x0020);i++)
-		//	test[i] = USART1->DR;
-		//for(j=0;j<i;j++)
-		{
-			//while (!(USART1->SR & 0x0080));
-       //USART1->DR = (0x31);
-		//	while (!(USART1->SR & 0x0080));
-       //USART3->DR = (0x32);
-			  if (USART3->SR & 0x0020)
-				{
-					int data = USART3->DR;
-					SER_PutChar(data);
-					USART1->DR = (data);
-				}
-//				if (USART2->SR & 0x0020)
-//				{
-//					int data = USART2->DR;
-//					SER_PutChar(data);
-//					USART1->DR = (data);
-//				}
     
-				//else
-			//SER_PutChar('K');
-			//SER_PutChar('E');
-			//SER_PutChar('K');
+			  if (USART2->SR & 0x0020)
+				{
+					
+					int data = USART2->DR;
+					if(data == 'S')
+					{
+						state = 1;
+					}
+					else if((state == 1) && (data == 'E'))
+					{
+						 state = 2;
+					}
+					else if((state == 2) && (data == 'N'))
+					{
+						 state = 3;
+					}
+					else if((state == 3 ) && (data == 'D'))
+					{
+						i = 0;
+						stop_gps = 1;
+						while(write_block_len)
+						{
+								i++;
+								a = SD_ReadSingleBlock( i,buff2);
+								//printf("read buffer status : %d and data : %s", a, buff2);
+								write_block_len--;
+							  for(j=0;j<512;j++)
+								{
+									  while (!(USART2->SR & 0x0080));
+											USART2->DR = (buff2[j] & 0xFF);
+								}
+						}
+						stop_gps = 0;
+					}
+				}
+//					//SER_PutChar(data);
+//					USART2->DR = (data);
+//					//SPI1->DR = 0x31;
+//					buff1[write_len++] = data;
+					if(write_len >= 512 )
+					{
+						write_len = 0;
+						pos1 = pos;
+						if(pos)
+						{
+							pos = 0;
+						}
+						else
+						{
+							pos = 1;
+						}
+						a = SD_WriteSingleBlock( write_block_len++,buff1[pos1]);
+						printf("Write buffer status : %d, block length: %d\n", a,write_block_len);
+						write_len = 0;
+					}
+//				}
+
 		}
 			
-		
-		//while(-1 == SER_GetChar());
-    //SER_PutChar('Y');
-   //printf ("Hello World num:%d\n\r",i);
-  }
-
+	
 }
