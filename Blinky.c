@@ -177,7 +177,7 @@ int main (void) {
 	DelayInit();
   SystemCoreClockConfigure();                              // configure HSI as System Clock
   SystemCoreClockUpdate();
-
+RCC->APB2ENR |= (3UL << 2);                /* Enable GPIOA clock            */
   
   //Buttons_Initialize();
   SER_Initialize();
@@ -194,15 +194,15 @@ int main (void) {
 		
 	//LED_Initialize_1();
 	//SPI1_Master_Init();
-  GPIOA->CRL   &= ~((15ul << 4*4));
-  GPIOA->CRL   |=  (( 1ul << 4*4));
+  GPIOB->CRL   &= ~((15ul << 4*0));
+  GPIOB->CRL   |=  (( 1ul << 4*0));
 //  SysTick_Config(SystemCoreClock / 1000);                  // SysTick 1 msec interrupts
   //GPIOB->BSRR = (1<<1);		// Turn specified LED on
 	//GPIOB->BSRR = (1<<0);		// Turn specified LED on
 	//GPIOB->BSRR = (1<<(14+16));		// Turn specified LED on
 	//GPIOB->BSRR = (1<<15);		// Turn specified LED on
-	//GPIOA->BSRR = (1<<8);		// Turn specified LED on
-	GPIOB->BSRR = (1<<13);
+	GPIOB->BSRR = (1<<0);		// Turn specified LED on
+	//GPIOB->BSRR = (1<<13);
 	//Delay(50000);
   for (;;) {
     
