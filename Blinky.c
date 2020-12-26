@@ -167,6 +167,9 @@ void USART3_IRQHandler()
 /*----------------------------------------------------------------------------
  * main: blink LED and check button state
  *----------------------------------------------------------------------------*/
+char gps_cmd[] = {"$PSTMSETPAR,1228,8000*1A\n"};
+char gps_cmd2[] = {"$PSTMSAVEPAR*58\n"};
+
 
 int main (void) {
   int32_t max_num = LED_GetCount();
@@ -204,6 +207,17 @@ RCC->APB2ENR |= (3UL << 2);                /* Enable GPIOA clock            */
 	GPIOB->BSRR = (1<<0);		// Turn specified LED on
 	//GPIOB->BSRR = (1<<13);
 	//Delay(50000);
+	
+	for(j=0;j<sizeof(gps_cmd);j++)
+	{
+			while (!(USART3->SR & 0x0080));
+				USART3->DR = (gps_cmd[j] & 0xFF);
+	}
+		for(j=0;j<sizeof(gps_cmd2);j++)
+	{
+			while (!(USART3->SR & 0x0080));
+				USART3->DR = (gps_cmd2[j] & 0xFF);
+	}
   for (;;) {
     
 			  if (USART2->SR & 0x0020)
